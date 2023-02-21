@@ -23,7 +23,7 @@ with col2:
 with col3:
     st.write("")
 
-st.sidebar.markdown("We are Master's students at KU Leuven studying Statistics and Data Science. Learn more about us in [About Us](#tab_aboutus)", unsafe_allow_html=True)              
+st.sidebar.markdown("We are Master's students at KU Leuven studying Statistics and Data Science. Learn more about us in About Us", unsafe_allow_html=True)              
 st.sidebar.info("This project is created for KU Leuven's Datathon 2023. Our work can be found on [Github](https://github.com/AvyG/ColorArt_DT). More information about the Datathon can be found [here](https://kul-datathon-jobfair.netlify.app/#Datathon)", icon="🎨")
 
 
@@ -51,7 +51,23 @@ with tab_home:
 
 with tab_aboutus:
     st.header("About Us")
-    st.markdown('''## Meet the members of Team FrostByte''', unsafe_allow_html=True)
+    st.markdown('''### Meet the members of Team FrostByte''', unsafe_allow_html=True)
+    
+    col1, col2, col3, col4 = st.columns(4, gap="medium")
+        with col1:
+            st.image('memoji_seorin.png',  use_column_width=True)
+            st.markdown ("Seorin Kim <\n> seorin.kim@student.kuleuven.be")
+        with col2:
+            st.image('memoji_seorin.png',  use_column_width=True)
+            st.markdown ("Seorin Kim <\n> seorin.kim@student.kuleuven.be")
+        with col3:
+            st.image('memoji_seorin.png',  use_column_width=True)
+            st.markdown ("Seorin Kim <\n> seorin.kim@student.kuleuven.be")
+        with col4:
+            st.image('memoji_seorin.png',  use_column_width=True)
+            st.markdown ("Seorin Kim <\n> seorin.kim@student.kuleuven.be")
+                
+    
     
     
     
