@@ -54,18 +54,18 @@ with tab_aboutus:
     st.markdown('''### Meet the members of Team FrostByte''', unsafe_allow_html=True)
     
     col1, col2, col3, col4 = st.columns(4, gap="medium")
-        with col1:
-            st.image('memoji_seorin.png',  use_column_width=True)
-            st.markdown ("Seorin Kim <\n> seorin.kim@student.kuleuven.be")
-        with col2:
-            st.image('memoji_seorin.png',  use_column_width=True)
-            st.markdown ("Seorin Kim <\n> seorin.kim@student.kuleuven.be")
-        with col3:
-            st.image('memoji_seorin.png',  use_column_width=True)
-            st.markdown ("Seorin Kim <\n> seorin.kim@student.kuleuven.be")
-        with col4:
-            st.image('memoji_seorin.png',  use_column_width=True)
-            st.markdown ("Seorin Kim <\n> seorin.kim@student.kuleuven.be")
+    with col1:
+        st.image('memoji_seorin.png',  use_column_width=True)
+        st.markdown ("Seorin Kim <\n> seorin.kim@student.kuleuven.be")
+    with col2:
+        st.image('memoji_seorin.png',  use_column_width=True)
+        st.markdown ("Seorin Kim <\n> seorin.kim@student.kuleuven.be")
+    with col3:
+        st.image('memoji_seorin.png',  use_column_width=True)
+        st.markdown ("Seorin Kim <\n> seorin.kim@student.kuleuven.be")
+    with col4:
+        st.image('memoji_seorin.png',  use_column_width=True)
+        st.markdown ("Seorin Kim <\n> seorin.kim@student.kuleuven.be")
                 
     
     
