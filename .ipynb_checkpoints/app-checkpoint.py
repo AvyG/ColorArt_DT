@@ -1,5 +1,7 @@
+import pandas as pd
 import streamlit as st
-from utils.functions import *
+import time
+from data import *
 
 # Set page title
 st.set_page_config( page_title='FrostByte', 
@@ -41,7 +43,6 @@ with tab_home:
     # Display the images side-by-side
     with st.container():
         col1, col2 = st.columns(2)
-        image1 = call_artwork(image_list[0][0]).resize((500,500))
         col1.image(call_artwork(image_list[0][0]), use_column_width=True, caption="Original Artwork")
         col2.image(call_artwork(image_list[0][1]), use_column_width=True, caption="AI-Generated Artworks")
 
