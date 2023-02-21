@@ -23,7 +23,7 @@ with col2:
 with col3:
     st.write("")
 
-st.sidebar.markdown("We are Master's students at KU Leuven studying Statistics and Data Science. Learn more about us in [About Us](#about-us)")              
+st.sidebar.markdown("We are Master's students at KU Leuven studying Statistics and Data Science. Learn more about us in [About Us](#tab_aboutus)", unsafe_allow_html=True)              
 st.sidebar.info("This project is created for KU Leuven's Datathon 2023. Our work can be found on [Github](https://github.com/AvyG/ColorArt_DT). More information about the Datathon can be found [here](https://kul-datathon-jobfair.netlify.app/#Datathon)", icon="🎨")
 
 
