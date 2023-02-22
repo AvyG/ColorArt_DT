@@ -10,6 +10,8 @@ app_path = p.Path(__file__).parents[1]
 
 # Useful path and files
 data_path = p.PurePath.joinpath(app_path, 'data')
+images_path = p.PurePath.joinpath(app_path, 'images')
+
 p_filtered_artwork = p.PurePath.joinpath(data_path, 'artwork_both_filtered.csv')
 
 # This function creates returns one list of n elements that half
@@ -22,6 +24,11 @@ def load_image_list(n):
             table.append((row[5],row[13]))
     random_elements = random.sample(table, n)
     return random_elements
+
+def call_image(image_file):
+    p_image = p.PurePath.joinpath(images_path, image_file)
+    image = Image.open(p_image)
+    return image
 
 def call_artwork(url):
     response = requests.get(url)
