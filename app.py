@@ -63,7 +63,7 @@ with tab_aboutus:
         st.image(call_image('avatar_seorin.png'),  use_column_width=True)
         st.markdown ("Seorin Kim \n> seorin.kim@student.kuleuven.be ")
     with col2:
-        st.image(call_image('avatar_seorin.png'),  use_column_width=True)
+        st.image(call_image('avatar_jolien.png'),  use_column_width=True)
         st.markdown ("Jolien Covens \n> jolien.covens@student.kuleuven.be")
     with col3:
         st.image(call_image('avatar_johan.png'),  use_column_width=True)
