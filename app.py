@@ -18,7 +18,7 @@ st.set_page_config( page_title='FrostByte',
 
 st.title("KU Leuven Datathon 2023")
 
-tab_home, tab_explore, tab_color, tab_aboutus = st.tabs(["Home", "Exploratory Analysis", "Color Analysis", "About Us"])
+tab_home, tab_explore, tab_color, tab_aboutus = st.tabs(["Home", "Explore Data", "Color Palettes", "About Us"])
 
 col1, col2, col3 = st.sidebar.columns([1,8,1])
 with col1:
