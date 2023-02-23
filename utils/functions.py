@@ -5,12 +5,12 @@ import random
 import requests
 from PIL import Image
 
-# Find current directory
-app_path = p.Path(__file__).parents[1]
+# Find parent directory
+file_path = p.Path(__file__).parents[1]
 
 # Useful path and files
-data_path = p.PurePath.joinpath(app_path, 'data')
-images_path = p.PurePath.joinpath(app_path, 'images')
+data_path = p.PurePath.joinpath(file_path, 'data')
+images_path = p.PurePath.joinpath(file_path, 'images')
 
 p_filtered_artwork = p.PurePath.joinpath(data_path, 'artwork_both_filtered.csv')
 

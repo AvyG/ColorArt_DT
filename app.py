@@ -37,11 +37,11 @@ with tab_home:
     n = 1
     image_list = load_image_list(n)
 
-    # Display the images side-by-side
+    # Display the images together
     with st.container():
         col1, col2 = st.columns(2)
         image1 = call_artwork(image_list[0][0]).resize((500,500))
-        image2 = call_artwork(image_list[0][1])#.resize((500,500))
+        image2 = call_artwork(image_list[0][1])
         col1.image(image1, use_column_width=True, caption="Original Artwork")
         col2.image(image2, use_column_width=True, caption="AI-Generated Artworks")
 
