@@ -1,4 +1,5 @@
 import math
+import random
 import pandas as pd
 import pathlib as p
 import streamlit as st
@@ -31,7 +32,7 @@ def create_exppage():
     display_data = display_data.reindex(columns=new_order)
 
     st.header("Input table")
-    st.markdown("This is the data we use to based or research")
+    st.markdown("This is the data we use to based our research")
     with st.expander("**Expand/Contract Here**", expanded=True):
         st.dataframe(display_data)
 
@@ -88,9 +89,15 @@ def create_exppage():
                 else:
                     image = call_image('noportrait.png').resize((500,500))
                     subcol2.image(image, width=250)
-                #st.subheader('Gallery')
-                #st.write('Original Work')
-                #subcol4, subcol5, subcol6 = st.columns(3)
-                #draft = artist_data['']
+                '''
+                st.subheader('Gallery')
+                st.write('Original Work')
+                n = 3
+                image_table = artist_data['title_og','image_url','url_AI']
+                subcol4, subcol5, subcol6 = st.columns(3)
+                if len(image_table) < 3:
 
+                else:
+                    draft = random.sample(image_table, n)
+                '''
 
