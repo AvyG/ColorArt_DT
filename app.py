@@ -43,11 +43,11 @@ with tab_home:
     n = 1
     image_list = load_image_list(n)
 
-    # Display the images together
+    # Display the images side-by-side
     with st.container():
         col1, col2 = st.columns(2)
         image1 = call_artwork(image_list[0][0]).resize((500,500))
-        image2 = call_artwork(image_list[0][1])
+        image2 = call_artwork(image_list[0][1])#.resize((500,500))
         col1.image(image1, use_column_width=True, caption="Original Artwork")
         col2.image(image2, use_column_width=True, caption="AI-Generated Artworks")
 
@@ -60,7 +60,7 @@ with tab_explore:
 
 # Color Analysis tab
 with tab_color:
-    st.header("Original Artwork")
+    st.header("Original Artworks")
     options = list(df.search)
     st.markdown(''' ### Check the color palette of an artwork by an artist ''')
     search = st.selectbox("Choose an artwork by an artist (⚠️ It takes some time to run):", options = options, index =options.index( "Starry Night (Vincent Van Gogh)"))
@@ -70,6 +70,17 @@ with tab_color:
 
     with st.expander("🖼  Artwork", expanded=True):
         st.write(fig)
+    
+    st.header("AI Artworks")
+    st.markdown(''' ### Check the color palette of AI generated artwork  \n Note that the artworks are generated with a prompt to paint [the title of original artwork] in the style of [original artist's name]. ''')
+    search_ai = st.selectbox("Choose a prompt (⚠️ It takes some time to run):", options = options, index =options.index( "Starry Night (Vincent Van Gogh)"))
+    file_ai = options.index(search_ai)
+    image_url_ai = df.url_AI.values[file_ai]
+    fig_ai = plot_extraction(image_url_ai, limit=5, crop=False)
+
+    with st.expander("🖼  Artwork", expanded=True):
+        st.write(fig_ai)
+
 
 
 
