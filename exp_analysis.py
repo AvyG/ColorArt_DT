@@ -17,16 +17,17 @@ def create_exppage():
 
     # Create a replica for cosmetic purpuses
     display_data = data
-    display_data = display_data.drop(['artist_id','movement_id','id'], axis=1)
+    display_data.rename(columns = {'title_og':'title_artwork','name':'artist_name'}, inplace=True)
 
-    new_order = ['artwork_id','title_artwork','picture','summary_artwork',
-                 'year','medium','location','rating','movement_name','movement_description',
-                 'artist','artist_name','wiki_artist', 'summary_artist',
+    new_order = ['artwork_id','title_artwork','summary_artwork',
+                 'year','medium','location','rating',
+                 'artist','picture','caption',
+                 'artist_name', 'summary_artist', 'artist_movements','description_movements',
                  'bithplace','deathplace','birthdate','deathdate','cause_of_death',
                  'source_artwork','topic_AI','artist_AI',
-                 'url_wiki','image_url','url_AI']
+                 'url_wiki','wiki_artist','image_url','url_AI','url_picture']
 
-    display_data = display_data.reindex(columns=new_order)
+    #display_data = display_data.reindex(columns=new_order)
 
     st.header("Input table")
     st.markdown("This is the data we use to based or research")
@@ -45,7 +46,7 @@ def create_exppage():
 
         artist_data = data.loc[data['artist_name'] == artist]
 
-        movement_lists = artist_data['movement_name'].tolist()
+        movement_lists = artist_data['artist_movements'].tolist()
         store_clean = []
         for mov_string in movement_lists:
             clean_str = mov_string.replace('[','').replace(']','').replace('\'','')
@@ -74,5 +75,5 @@ def create_exppage():
                 st.write('future portrait')
             st.subheader('Gallery')
             subcol4, subcol5, subcol6 = st.columns(3)
-            
+
 
