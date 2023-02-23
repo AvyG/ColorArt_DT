@@ -17,12 +17,13 @@ tosave_path = p.PurePath.joinpath(app_path, 'data', 'full_artwork_filtered.csv')
 
 def generate_dataset():
 
-    # Recall the necessary provided dataset
+    # Recall the provided dataset
     artists = pd.read_parquet("https://kuleuven-datathon-2023.s3.eu-central-1.amazonaws.com/data/Artist.parquet.gzip")
     generated = pd.read_parquet('https://kuleuven-datathon-2023.s3.eu-central-1.amazonaws.com/data/Generated.parquet.gzip')
     artworks = pd.read_parquet('https://kuleuven-datathon-2023.s3.eu-central-1.amazonaws.com/data/Artwork.parquet.gzip')
     movement = pd.read_parquet('https://kuleuven-datathon-2023.s3.eu-central-1.amazonaws.com/data/Movement.parquet.gzip')
     artmov = pd.read_csv('https://kuleuven-datathon-2023.s3.eu-central-1.amazonaws.com/data/ArtistMovements.csv')
+    picture = pd.read_parquet('https://kuleuven-datathon-2023.s3.eu-central-1.amazonaws.com/data/ArtistPicture.parquet.gzip')
     
     # Extract the url as a string in a separated column
     generated['strurl'] = str(generated.url)
@@ -34,7 +35,7 @@ def generate_dataset():
 
     # Making a common column due to its absence
     generated['num'] = 1
-    art.loc[:,'num'] = 1
+    art.loc[:,'num'] =1
 
     # Concatenate the two dataframes
     generated_info = pd.concat([generated, art], axis=1)
@@ -76,22 +77,23 @@ def generate_dataset():
                                   'Galleria nazionale di Parma': 'Galleria Nazionale di Parma'
                                  }})
     
-    # Merge the table with the "movement" data
-    # For this first we need to merge with the "artistmovement" data
-    # Then we can merge the table with the "movement" data to have the movement name and description for each artwork 
-    merged_table = pd.merge(df, artmov, left_on = 'artist', right_on='artist_id')
-    df = pd.merge(merged_table, movement,  left_on='movement_id', right_on='id')
-    
-    df.rename(columns= {'name_x': 'artist_name', 'name_y':'movement_name','description':'movement_description','title_og':'title_artwork'}, inplace = True)
-    
-    # But some artworks belong to more than one movement
-    # This transform the movements of those artworks to a list
-    grouped = df.groupby("artwork_id")["movement_name"].apply(list).reset_index()
-    df.drop("movement_name", axis=1, inplace=True)
-    df = pd.merge(df, grouped, on="artwork_id", how="left")
-    df.drop_duplicates(subset=["artwork_id"], inplace=True)
+    artmov.rename(columns={'artist_id':'artist', 'movement_id':'id' }, inplace = True)
+    merged_table = pd.merge(artmov, movement, on = 'id', how='left')
+    grouped_table = merged_table.groupby("artist").agg({
+                               'name': lambda x: list(x),
+                               'description': lambda x: list(x)})
+    grouped_table = grouped_table.reset_index()
+    grouped_table.rename(columns = {'name':'artist_movements','description':'description_movements'}, inplace = True)
 
-    #This checks for AI artwork that are black
+    df_mov = pd.merge(df, grouped_table, on = 'artist', how = 'left')
+    
+    picture.drop(['source_url'], inplace=True, axis=1)
+    picture.rename(columns = {'id': 'picture','url':'url_picture'}, inplace =True)
+    
+    df =  pd.merge(df_mov, picture, on = "picture", how = 'left')
+
+    
+    print(f"Images in total = {len(df.url_AI)}")
     i=1
     for url in df.url_AI:
         response = requests.get(url)
@@ -107,4 +109,5 @@ def generate_dataset():
             i+=1
             #print(f"\r{df[df['url_AI'] == url].index.item()}", 'colored image', end='', flush=True)
     
-    df.to_csv(tosave_path, index=False)
+    df.to_csv('full_artwork_filtered.csv', index=False)
+    
