@@ -2,9 +2,15 @@ import streamlit as st
 from utils.functions import *
 from exp_analysis import *
 
+
+# Load necessary data
+import pandas as pd
+df = pd.read_csv('data/artwork_both_filtered.csv')
+df['search'] = df['title_og'].astype(str) + str(' (') + df['name'].astype(str) + str(')')
+
 # Set page title
 st.set_page_config( page_title='FrostByte', 
-                    page_icon='🎨', 
+                    page_icon= 'images/favicon.png', 
                     layout='wide')
 
 
@@ -12,7 +18,7 @@ st.set_page_config( page_title='FrostByte',
 
 st.title("KU Leuven Datathon 2023")
 
-tab_home, tab_explore, tab_analysis, tab_aboutus = st.tabs(["Home", "Exploratory Analysis", "Color Analysis", "About Us"])
+tab_home, tab_explore, tab_color, tab_aboutus = st.tabs(["Home", "Exploratory Analysis", "Color Analysis", "About Us"])
 
 col1, col2, col3 = st.sidebar.columns([1,8,1])
 with col1:
@@ -50,6 +56,21 @@ with tab_home:
 
 with tab_explore:
     create_exppage()
+    
+
+# Color Analysis tab
+with tab_color:
+    st.header("Original Artwork")
+    options = list(df.search)
+    st.markdown(''' ### Check the color palette of an artwork by an artist ''')
+    search = st.selectbox("Choose an artwork by an artist (⚠️ It takes some time to run):", options = options, index =options.index( "Starry Night (Vincent Van Gogh)"))
+    file = options.index(search)
+    image_url = df.image_url.values[file]
+    fig = plot_extraction(image_url, limit=5, crop=True)
+
+    with st.expander("🖼  Artwork", expanded=True):
+        st.write(fig)
+
 
 
 # About Us tab
@@ -61,15 +82,15 @@ with tab_aboutus:
     col1, col2, col3, col4 = st.columns(4, gap="medium")
     with col1:
         st.image(call_image('avatar_seorin.png'),  use_column_width=True)
-        st.markdown ("Seorin Kim \n> seorin.kim@student.kuleuven.be")
+        st.markdown ("Seorin Kim \n> seorin.kim@student.kuleuven.be ")
     with col2:
-        st.image(call_image('avatar_seorin.png'),  use_column_width=True)
+        st.image(call_image('avatar_jolien.png'),  use_column_width=True)
         st.markdown ("Jolien Covens \n> jolien.covens@student.kuleuven.be")
     with col3:
-        st.image(call_image('avatar_seorin.png'),  use_column_width=True)
-        st.markdown ("Johan Rogiers \n> johan.rogiers@student.kuleuven.be")
+        st.image(call_image('avatar_johan.png'),  use_column_width=True)
+        st.markdown ("Johan Rogiers \n> johan.rogiers@student.kuleuven.be ")
     with col4:
-        st.image(call_image('avatar_seorin.png'),  use_column_width=True)
+        st.image(call_image('avatar_avelyn.png'),  use_column_width=True)
         st.markdown ("Avelyn Fernanda García Araya \n> avelynfernanda.garciaaraya@student.kuleuven.be")
                 
     
