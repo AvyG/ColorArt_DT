@@ -48,7 +48,7 @@ def create_exppage():
 
         with st.container():
             artist = st.selectbox("Select Artist",
-                                list_artist, index=161)
+                                list_artist, index=160)
 
             artist_data = data.loc[data['artist_name'] == artist]
 
@@ -88,7 +88,9 @@ def create_exppage():
                 else:
                     image = call_image('noportrait.png').resize((500,500))
                     subcol2.image(image, width=250)
-                st.subheader('Gallery')
-                subcol4, subcol5, subcol6 = st.columns(3)
+                #st.subheader('Gallery')
+                #st.write('Original Work')
+                #subcol4, subcol5, subcol6 = st.columns(3)
+                #draft = artist_data['']
 
 

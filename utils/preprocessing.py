@@ -61,7 +61,7 @@ def generate_dataset():
     Smithsonian Museum of American Art = Smithsonian American Art Museum
     J. Paul Getty Museum = The J. Paul Getty Museum
     Galleria nazionale di Parma = Galleria Nazionale di Parma
-"""
+    """
 
     # Note: checked online what appears to be the official name of the locations.
     df.loc[df.location.str.contains('Louvre', case=False) == True, 'location'] = "Musée du Louvre"
@@ -76,6 +76,7 @@ def generate_dataset():
                                   'The J. Paul Getty Museum': 'J. Paul Getty Museum',
                                   'Galleria nazionale di Parma': 'Galleria Nazionale di Parma'
                                  }})
+    df['name'] = df['name'].str.replace(r'\(.*?\) ', '', regex=True)
     
     artmov.rename(columns={'artist_id':'artist', 'movement_id':'id' }, inplace = True)
     merged_table = pd.merge(artmov, movement, on = 'id', how='left')
@@ -91,7 +92,6 @@ def generate_dataset():
     picture.rename(columns = {'id': 'picture','url':'url_picture'}, inplace =True)
     
     df =  pd.merge(df_mov, picture, on = "picture", how = 'left')
-
     
     print(f"Images in total = {len(df.url_AI)}")
     i=1
@@ -110,4 +110,6 @@ def generate_dataset():
             #print(f"\r{df[df['url_AI'] == url].index.item()}", 'colored image', end='', flush=True)
     
     df.to_csv('full_artwork_filtered.csv', index=False)
+    
+
     
